@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Subscription Mangement App ( MEN STACK )
 A simple MEN  ( MongoDB, Express, Node.js ) for managing subscribers and thier subscriptions
 
@@ -26,7 +25,7 @@ subscribers can log in to the app to view their  subscriptions details.
 - View thier own subscribtions
 
 # ERD
-! [ERD] (./public/ERD.png)
+![ERD](./public/ERD.png)
 
 
 ## Models
@@ -43,4 +42,4 @@ subscribers can log in to the app to view their  subscriptions details.
 - userId
 
 ## Mockup:
-! [ERD] (./public/mockup.png)
+![ERD](./public/mockup.png)
