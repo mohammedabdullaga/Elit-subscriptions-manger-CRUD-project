@@ -1,0 +1,10 @@
+<nav>
+    <% if (user) { %>
+        <span>Logged in as: <%= user.phone %></span>
+        <a href="/auth/logout">Logout</a>
+    <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/signup">Sign Up</a>
+    <% } %>
+</nav>
+<hr>
