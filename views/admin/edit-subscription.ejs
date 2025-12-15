@@ -37,7 +37,7 @@
         <br>
         <div>
             <label>Expiry Date</label><br>
-            <input type="date" name="expiryDate" value="<%= subscription.expiryDate %>" required />
+            <input type="date" name="expiryDate" value="<%= subscription.expiryDate.toISOString().split('T')[0] %>" required />
         </div>
 
         <br>
