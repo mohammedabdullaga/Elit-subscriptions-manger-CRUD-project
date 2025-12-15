@@ -1,23 +1,30 @@
 const mongoose = require('mongoose')
 
-const subscriptionSchema = new mongoose.Schema({
-    packageType: {
-        type: String,
-        required: true
+const subscriptionSchema = new mongoose.Schema(
+  {
+    phone: {
+      type: String,
+      required: true
+    },
+    subscriptionName: {
+      type: String,
+      required: true
+    },
+    packageDuration: {
+      type: String,
+      required: true
     },
     expiryDate: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true
     },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true
+    notes: {
+      type: String
     }
-}, {
+  },
+  {
     timestamps: true
-})
+  }
+)
 
-const Subscription = mongoose.model("Subscription", subscriptionSchema)
-
-module.exports = Subscription
+module.exports = mongoose.model('Subscription', subscriptionSchema)

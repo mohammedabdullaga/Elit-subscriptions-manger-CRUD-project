@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const session = require('express-session')
 const methodOverride = require('method-override')
+const {MongoStore} = require('connect-mongo')
 
 // -------------------------
 // calling the routes
@@ -51,11 +52,16 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs')
 
 // (sessions)
-app.use(session({
+app.use(
+  session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
-}))
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+    }),
+  })
+)
 
 //--------------------------
 // pass user to all views
@@ -63,27 +69,29 @@ app.use(session({
 const passUserToView = require('./middleware/passUserToView')
 app.use(passUserToView)
 
-//---------------------------
-// route admin ti his dashboard
-//--------------------------
-const adminRoutes = require('./routes/admin')
-app.use('/admin', adminRoutes)
-//----------------------------
-//route subscriber to his panel
-//----------------------------
-const subscriberRoutes = require('./routes/subscriber')
-app.use('/subscriber', subscriberRoutes)
 
 // -------------------------
 // linking routes
 // -------------------------
 app.use('/auth', authRoutes)
 
+//----------------------------
+//route subscriber to his panel
+//----------------------------
+const subscriberRoutes = require('./routes/subscriber')
+app.use('/subscriber', subscriberRoutes)
+
+//---------------------------
+// route admin ti his dashboard
+//--------------------------
+const adminRoutes = require('./routes/admin')
+app.use('/admin', adminRoutes)
+
 // -------------------------
 // route for test
 // -------------------------
 app.get('/', (req, res) => {
-    res.send('server is running')
+    res.render('./index.ejs')
 })
 
 // -------------------------

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add subscription</title>
+</head>
+<body>
+
+    <%- include('../partials/navbar') %>
+
+    <h1>Add a New Subscription</h1>
+
+    <form action="/admin/subscriptions" method="POST">
+        <div>
+            <label>User Number</label><br>
+            <input 
+                type="text" 
+                name="phone" 
+                placeholder="Enter user phone number"
+                required
+            />
+        </div>
+        <br>
+        <div>
+            <label>Subscription Name</label><br>
+            <input 
+                type="text" 
+                name="subscriptionName" 
+                placeholder="example: TV subscription"
+                required
+            />
+        </div>
+        <br>
+        <div>
+            <label>Subscription Package</label><br>
+            <select name="packageDuration" required>
+                <option value="">Select package</option>
+                <option value="1 month">1 month</option>
+                <option value="3 months">3 months</option>
+                <option value="6 months">6 months</option>
+                <option value="12 months">12 months</option>
+            </select>
+        </div>
+
+        <br>
+        <div>
+            <label>Expiry Date</label><br>
+            <input 
+                type="date" 
+                name="expiryDate" 
+                required
+            />
+        </div>
+        <br>
+        <div>
+            <label>Notes</label><br>
+            <textarea 
+                name="notes" 
+                placeholder="Any notes about this subscription"
+                rows="4"
+            ></textarea>
+        </div>
+
+        <br><br>
+        <button type="submit">Add</button>
+        <a href="/admin/dashboard">
+            <button type="button">Home</button>
+        </a>
+
+    </form>
+
+</body>
+</html>

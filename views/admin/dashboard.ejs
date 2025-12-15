@@ -9,11 +9,29 @@
 
     <%- include('../partials/navbar') %>
 
-    <h1>Admin Dashboard</h1>
+    <h1>Welcome Admin</h1>
+    <div>
+        <a href="/admin/subscriptions/new">
+            <button>Add new subscriber</button>
+        </a>
+    </div>
 
-    <p>Welcome Admin: <strong><%= user.phone %></strong></p>
+    <br>
+    <form action="/admin/subscriptions" method="GET">
+        <input 
+            type="text" 
+            name="phone" 
+            placeholder="Search subscriber by phone"
+        />
+        <button type="submit">Search</button>
+    </form>
 
-    <p>Manage all subscribers from here.</p>
+    <br>
+    <div>
+        <a href="/admin/dashboard">
+            <button>Home</button>
+        </a>
+    </div>
 
 </body>
 </html>

@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscriber Dashboard</title>
+    <title>Search result</title>
 </head>
 <body>
 
     <%- include('../partials/navbar') %>
 
-    <h1>My Subscriptions</h1>
+    <h1>Subscriptions for: <%= phone %></h1>
 
     <% if (subscriptions.length === 0) { %>
         <p>No subscriptions found.</p>
@@ -17,17 +17,31 @@
 
         <% subscriptions.forEach(sub => { %>
             <div>
-                <p>Subscription: <%= sub.subscriptionName %></p>
+                <p>Name: <%= sub.subscriptionName %></p>
                 <p>Package: <%= sub.packageDuration %></p>
-                <p>Expiry Date: <%= sub.expiryDate.toDateString() %></p>
+                <p>Expiry: <%= sub.expiryDate.toDateString() %></p>
 
                 <% if (sub.notes) { %>
                     <p>Notes: <%= sub.notes %></p>
                 <% } %>
+
+                <a href="/admin/subscriptions/<%= sub._id %>/edit">
+                    <button>Update</button>
+                </a>
+
+                <form action="/admin/subscriptions/<%= sub._id %>?_method=DELETE" method="POST" style="display:inline;">
+    <button type="submit">Delete</button>
+</form>
             </div>
         <% }) %>
 
     <% } %>
+
+    <br>
+
+    <a href="/admin/dashboard">
+        <button>Home</button>
+    </a>
 
 </body>
 </html>
