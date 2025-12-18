@@ -3,25 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
+    />
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+
     <%- include('../partials/navbar') %>
 
-    <h1>Login</h1>
+    <div class="container">
 
-    <form action="/auth/login" method="POST">
+        <div class="card">
 
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" required />
-        <br><br>
+            <h1 class="text-center">Login</h1>
+            <% if (typeof error !== 'undefined') { %>
+            <p class="error-message"><%= error %></p>
+            <% } %>
+            <form action="/auth/login" method="POST">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required />
-        <br><br>
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required />
 
-        <button type="submit">Login</button>
-    </form>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required/>
+
+                <div class="button-center">
+                    <button type="submit">Login</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

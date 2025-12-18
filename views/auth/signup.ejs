@@ -4,26 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
+    />
+
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+
     <%- include('../partials/navbar') %>
 
-    <h1>Create Account</h1>
-    <form action="/auth/signup" method="POST">
+    <div class="container">
 
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" required>
-        <br><br>
+        <div class="card">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br><br>
-    
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required>
-        <br><br>
+            <h1 class="text-center">Create Account</h1>
+            <% if (typeof error !== 'undefined') { %>
+            <p class="error-message"><%= error %></p>
+            <% } %>
+            <form action="/auth/signup" method="POST">
 
-        <button type="submit">Sign Up</button>
-    </form>
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required/>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password" required/>
+
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required />
+
+                <div class="button-center">
+                    <button type="submit">Sign Up</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
 </body>
 </html>

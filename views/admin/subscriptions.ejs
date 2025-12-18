@@ -4,33 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search result</title>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
+/>
+<link rel="stylesheet" href="/style.css">
+
+
 </head>
 <body>
 
     <%- include('../partials/navbar') %>
+    <div class="container">
+<h3 class="text-center">Sort By</h3>
+<div class="button-center">
+<a href="/admin/subscriptions?phone=<%= phone %>&sort=recent">
+    <button>Recently Added</button>
+</a>
 
-    <h1>Subscriptions for: <%= phone %></h1>
+<a href="/admin/subscriptions?phone=<%= phone %>&sort=expiry">
+    <button>Expiry Date</button>
+</a>
+</div>
+<br><br>
+
+    <h1 class="text-center">Subscriptions</h1>
+
+    <div class="row-txt" style="max-width: 400px; margin: 0 auto 2rem;">
+    <span class="label-txt">Phone</span>
+    <span class="para-txt"><%= phone %></span>
+    </div>
+
 
     <% if (subscriptions.length === 0) { %>
         <p>No subscriptions found.</p>
     <% } else { %>
 
         <% subscriptions.forEach(sub => { %>
-            <div>
-                <p>Name: <%= sub.subscriptionName %></p>
-                <p>Package: <%= sub.packageDuration %></p>
-                <p>Expiry: <%= sub.expiryDate.toDateString() %></p>
+            <div class="card">
+                <div class="row-txt">
+                <span class="label-txt">Name</span>
+                <span class="para-txt"><%= sub.subscriptionName %></span>
+            </div>
+
+            <div class="row-txt">
+            <span class="label-txt">Package</span>
+            <span class="para-txt"><%= sub.packageDuration %></span>
+            </div>
+
+            <div class="row-txt">
+             <span class="label-txt">Expiry</span>
+             <span class="para-txt"><%= sub.expiryDate.toDateString() %></span>
+            </div>
+
 
                 <% if (sub.notes) { %>
-                    <p>Notes: <%= sub.notes %></p>
+                 <div class="note-txt">
+                  <strong>Notes</strong><br>
+                  <%= sub.notes %>
+                </div>
                 <% } %>
 
+                    <div class="button-center">
                 <a href="/admin/subscriptions/<%= sub._id %>/edit">
                     <button>Update</button>
                 </a>
 
                 <form action="/admin/subscriptions/<%= sub._id %>?_method=DELETE" method="POST" style="display:inline;">
-    <button type="submit">Delete</button>
+    <button type="submit" class="button-delete">Delete</button>
+    </div>
 </form>
             </div>
         <% }) %>
@@ -38,10 +80,11 @@
     <% } %>
 
     <br>
-
+<div class="button-center">
     <a href="/admin/dashboard">
         <button>Home</button>
     </a>
-
+</div>
+    </div>
 </body>
 </html>

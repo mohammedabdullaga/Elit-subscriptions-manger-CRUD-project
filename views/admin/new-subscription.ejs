@@ -3,72 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add subscription</title>
+    <title>Add Subscription</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
+    />
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
     <%- include('../partials/navbar') %>
 
-    <h1>Add a New Subscription</h1>
+    <div class="container">
 
-    <form action="/admin/subscriptions" method="POST">
-        <div>
-            <label>User Number</label><br>
-            <input 
-                type="text" 
-                name="phone" 
-                placeholder="Enter user phone number"
-                required
-            />
-        </div>
-        <br>
-        <div>
-            <label>Subscription Name</label><br>
-            <input 
-                type="text" 
-                name="subscriptionName" 
-                placeholder="example: TV subscription"
-                required
-            />
-        </div>
-        <br>
-        <div>
-            <label>Subscription Package</label><br>
-            <select name="packageDuration" required>
-                <option value="">Select package</option>
-                <option value="1 month">1 month</option>
-                <option value="3 months">3 months</option>
-                <option value="6 months">6 months</option>
-                <option value="12 months">12 months</option>
-            </select>
-        </div>
+        <div class="card">
 
-        <br>
-        <div>
-            <label>Expiry Date</label><br>
-            <input 
-                type="date" 
-                name="expiryDate" 
-                required
-            />
-        </div>
-        <br>
-        <div>
-            <label>Notes</label><br>
-            <textarea 
-                name="notes" 
-                placeholder="Any notes about this subscription"
-                rows="4"
-            ></textarea>
+            <h1 class="text-center">Add a New Subscription</h1>
+            <p class="desc-txt">Fill in the details to add a new subscription</p>
+
+
+            <form action="/admin/subscriptions" method="POST">
+
+                <label>User Number</label>
+                <input type="text" name="phone" placeholder="Enter user phone number"required/>
+
+                <label>Subscription Name</label>
+                <input type="text" name="subscriptionName" placeholder="Example: TV Subscription" required/>
+
+                <label>Subscription Package</label>
+                <select name="packageDuration" required>
+                    <option value="">Select package</option>
+                    <option value="1 month">1 month</option>
+                    <option value="3 months">3 months</option>
+                    <option value="6 months">6 months</option>
+                    <option value="12 months">12 months</option>
+                </select>
+
+                <label>Expiry Date</label>
+                <input type="date" name="expiryDate" required />
+
+                <label>Notes</label>
+                <textarea name="notes" placeholder="Any notes about this subscription" rows="4"></textarea>
+
+                <div class="button-center">
+                    <button type="submit">Add</button>
+
+                    <a href="/admin/dashboard">
+                        <button type="button" class="button-outline">Home</button>
+                    </a>
+                </div>
+
+            </form>
+
         </div>
 
-        <br><br>
-        <button type="submit">Add</button>
-        <a href="/admin/dashboard">
-            <button type="button">Home</button>
-        </a>
-
-    </form>
+    </div>
 
 </body>
 </html>

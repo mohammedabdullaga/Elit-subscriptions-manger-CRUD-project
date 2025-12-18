@@ -11,11 +11,15 @@ module.exports.signup = async (req, res) => {
     try {
         const {phone, password, confirmPassword} = req.body
         if (password !== confirmPassword) {
-            return res.send("Passwords do not match")
+            return res.render('auth/signup', {
+        error: 'Passwords do not match'
+      })
         }
-        const userInDatabase = await User.findOne({ phone });
+        const userInDatabase = await User.findOne({ phone })
         if (userInDatabase) {
-            return res.send("Phone number already exists");
+            return res.render('auth/signup', {
+        error: 'Phone number is already registered'
+      })
         }
         const hashedPassword = bcrypt.hashSync(password, 10)
         await User.create ({
@@ -40,11 +44,15 @@ module.exports.login = async (req,res) => {
         //im checking if the user phone is exist or no
         const user = await User.findOne({phone})
         if (!user) {
-            return res.send('Invalid phone or password')
+            return res.render('auth/login', {
+        error: 'Invalid phone or password'
+      })
         }
         const isPasswordCorrect = await bcrypt.compare(password, user.password)
         if (!isPasswordCorrect) {
-            return res.send('Invalid phone or password')
+            return res.render('auth/login', {
+        error: 'Invalid phone or password'
+      })
         }
         req.session.user = {
             _id: user._id,
@@ -66,7 +74,7 @@ module.exports.login = async (req,res) => {
 module.exports.logout = (req, res) => {
     try {
         req.session.destroy(() => {
-            res.redirect('/auth/login')
+            res.redirect('/')
         })
     } catch (err) {
         res.send("Error: " + err.message)

@@ -3,34 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin dashboard</title>
+    <title>Admin Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
+    />
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
     <%- include('../partials/navbar') %>
 
-    <h1>Welcome Admin</h1>
-    <div>
-        <a href="/admin/subscriptions/new">
-            <button>Add new subscriber</button>
-        </a>
-    </div>
+    <div class="container">
 
-    <br>
-    <form action="/admin/subscriptions" method="GET">
-        <input 
-            type="text" 
-            name="phone" 
-            placeholder="Search subscriber by phone"
-        />
-        <button type="submit">Search</button>
-    </form>
+        <div class="card text-center">
 
-    <br>
-    <div>
-        <a href="/admin/dashboard">
-            <button>Home</button>
-        </a>
+            <h1>Welcome Admin</h1>
+            <p class="desc-txt">
+            Manage subscribers and their subscriptions
+            </p>
+            <hr>
+
+            <form action="/admin/subscriptions" method="GET">
+                <input type="text" name="phone" placeholder="Search subscriber by phone" required/>
+                <div class="button-center">
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+
+            <hr>
+<div>
+                <a href="/admin/subscriptions/new">
+                    <button class="button-add">Add New Subscription</button>
+                </a>
+            </div>
+
+        </div>
+
     </div>
 
 </body>

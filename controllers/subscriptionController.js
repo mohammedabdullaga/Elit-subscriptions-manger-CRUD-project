@@ -26,7 +26,7 @@ module.exports.createSubscription = async (req, res) => {
             expiryDate,
             notes
         })
-        res.send('Subscription added successfully')
+        res.redirect(`/admin/subscriptions?phone=${phone}`)
 
     } catch (err) {
         res.send('Error: ' + err.message)

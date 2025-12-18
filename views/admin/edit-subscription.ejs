@@ -4,57 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Subscription</title>
+
+    <!-- Milligram -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
+    />
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
     <%- include('../partials/navbar') %>
 
-    <h1>Edit Subscription</h1>
+    <div class="container">
 
-    <form action="/admin/subscriptions/<%= subscription._id %>?_method=PUT" method="POST">
-        <div>
-            <label>User Number</label><br>
-            <input type="text" name="phone" value="<%= subscription.phone %>" required />
+        <div class="card">
+
+            <h1 class="text-center">Edit Subscription</h1>
+            <p class="desc-txt">Update subscription details below</p>
+
+
+            <form action="/admin/subscriptions/<%= subscription._id %>?_method=PUT" method="POST">
+
+                <label>User Number</label>
+                <input type="text" name="phone" value="<%= subscription.phone %>" required />
+
+                <label>Subscription Name</label>
+                <input type="text" name="subscriptionName" value="<%= subscription.subscriptionName %>" required />
+
+                <label>Subscription Package</label>
+                <select name="packageDuration" required>
+                    <option value="1 month" <%= subscription.packageDuration === '1 month' ? 'selected' : '' %>>1 month</option>
+                    <option value="3 months" <%= subscription.packageDuration === '3 months' ? 'selected' : '' %>>3 months</option>
+                    <option value="6 months" <%= subscription.packageDuration === '6 months' ? 'selected' : '' %>>6 months</option>
+                    <option value="12 months" <%= subscription.packageDuration === '12 months' ? 'selected' : '' %>>12 months</option>
+                </select>
+
+                <label>Expiry Date</label>
+                <input type="date" name="expiryDate" value="<%= subscription.expiryDate.toISOString().split('T')[0] %>" required/>
+
+                <label>Notes</label>
+                <textarea name="notes" rows="4"><%= subscription.notes %></textarea>
+
+                <div class="button-center">
+                    <button type="submit">Save</button>
+
+                    <a href="/admin/dashboard">
+                        <button type="button" class="button-outline">Home</button>
+                    </a>
+                </div>
+
+            </form>
+
         </div>
 
-        <br>
-        <div>
-            <label>Subscription Name</label><br>
-            <input type="text" name="subscriptionName" value="<%= subscription.subscriptionName %>" required />
-        </div>
-
-        <br>
-        <div>
-            <label>Subscription Package</label><br>
-            <select name="packageDuration" required>
-                <option value="1 month" <%= subscription.packageDuration === '1 month' ? 'selected' : '' %>>1 month</option>
-                <option value="3 months" <%= subscription.packageDuration === '3 months' ? 'selected' : '' %>>3 months</option>
-                <option value="6 months" <%= subscription.packageDuration === '6 months' ? 'selected' : '' %>>6 months</option>
-                <option value="12 months" <%= subscription.packageDuration === '12 months' ? 'selected' : '' %>>12 months</option>
-            </select>
-        </div>
-
-        <br>
-        <div>
-            <label>Expiry Date</label><br>
-            <input type="date" name="expiryDate" value="<%= subscription.expiryDate.toISOString().split('T')[0] %>" required />
-        </div>
-
-        <br>
-        <div>
-            <label>Notes</label><br>
-            <textarea name="notes" rows="4"><%= subscription.notes %></textarea>
-        </div>
-
-        <br><br>
-
-        <button type="submit">Save</button>
-
-        <a href="/admin/dashboard">
-            <button type="button">Home</button>
-        </a>
-
-    </form>
+    </div>
 
 </body>
 </html>

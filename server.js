@@ -91,8 +91,22 @@ app.use('/admin', adminRoutes)
 // route for test
 // -------------------------
 app.get('/', (req, res) => {
-    res.render('./index.ejs')
+    // If user is logged in
+    if (req.session.user) {
+
+        // Admin user
+        if (req.session.user.role === 'admin') {
+            return res.redirect('/admin/dashboard')
+        }
+        // Subscriber user
+        if (req.session.user.role === 'subscriber') {
+            return res.redirect('/subscriber/dashboard')
+        }
+    }
+    // not logged in
+    res.render('index')
 })
+
 
 // -------------------------
 //runing the server

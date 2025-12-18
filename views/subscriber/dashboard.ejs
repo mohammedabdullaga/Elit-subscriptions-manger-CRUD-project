@@ -4,30 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscriber Dashboard</title>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
+/>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
     <%- include('../partials/navbar') %>
-
-    <h1>My Subscriptions</h1>
+<div class="container">
+    <h1 class="text-center">My Subscriptions</h1>
 
     <% if (subscriptions.length === 0) { %>
-        <p>No subscriptions found.</p>
+        <p class="desc-txt">No subscriptions found.</p>
     <% } else { %>
 
         <% subscriptions.forEach(sub => { %>
-            <div>
-                <p>Subscription: <%= sub.subscriptionName %></p>
-                <p>Package: <%= sub.packageDuration %></p>
-                <p>Expiry Date: <%= sub.expiryDate.toDateString() %></p>
+            <div class="card">
 
-                <% if (sub.notes) { %>
-                    <p>Notes: <%= sub.notes %></p>
-                <% } %>
+          <div class="row-txt">
+            <span class="label-txt">Subscription</span>
+            <span class="para-txt"><%= sub.subscriptionName %></span>
+          </div>
+
+          <div class="row-txt">
+            <span class="label-txt">Package</span>
+            <span class="para-txt"><%= sub.packageDuration %></span>
+          </div>
+
+          <div class="row-txt">
+            <span class="label-txt">Expiry</span>
+            <span class="para-txt"><%= sub.expiryDate.toDateString() %></span>
+          </div>
+
+          <% if (sub.notes) { %>
+            <div class="note-txt">
+              <strong>Notes</strong><br>
+              <%= sub.notes %>
             </div>
-        <% }) %>
+          <% } %>
+
+        </div>
+
+      <% }) %>
 
     <% } %>
 
+  </div>
 </body>
 </html>

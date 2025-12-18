@@ -5,36 +5,68 @@ const requireLogin = require('../middleware/requireLogin')
 const requireAdmin = require('../middleware/requireAdmin')
 const Subscription = require('../models/subscription')
 
-// Admin dashboard page
+const {
+    newSubscriptionForm,
+    createSubscription
+} = require('../controllers/subscriptionController')
+
+
+// ==========================
+// Admin Dashboard
+// ==========================
 router.get('/dashboard', requireLogin, requireAdmin, (req, res) => {
     res.render('admin/dashboard')
 })
 
-const { newSubscriptionForm, createSubscription } = require('../controllers/subscriptionController')
 
-// Show form to add subscription for a user
+// ==========================
+// Add New Subscription
+// ==========================
 router.get('/subscriptions/new', requireLogin, requireAdmin, newSubscriptionForm)
 
 router.post('/subscriptions', requireLogin, requireAdmin, createSubscription)
 
+
+// ==========================
+// Search + Sorting Subscriptions
+// ==========================
 router.get('/subscriptions', requireLogin, requireAdmin, async (req, res) => {
     try {
-        const { phone } = req.query
+        const { phone, sort } = req.query;
+
         if (!phone) {
-            return res.send('Please provide a phone number')
+            return res.send('Please provide a phone number');
         }
-        const subscriptions = await Subscription.find({ phone })
-        console.log({phone})
+
+        let sortOption = {}
+
+        if (sort === 'recent') {
+            sortOption = { createdAt: -1 }
+        }
+
+        if (sort === 'expiry') {
+            sortOption = { expiryDate: 1 }
+        }
+
+        const subscriptions = await Subscription
+            .find({ phone })
+            .sort(sortOption)
+
         res.render('admin/subscriptions', {
             phone,
-            subscriptions
+            subscriptions,
+            sort
         })
 
     } catch (err) {
         res.send('Error: ' + err.message)
     }
-})
-// edit subscriptions 
+});
+
+
+// ==========================
+// Edit Subscription (Form)
+// ==========================
 router.get('/subscriptions/:id/edit', requireLogin, requireAdmin, async (req, res) => {
     try {
         const subscription = await Subscription.findById(req.params.id)
@@ -50,10 +82,19 @@ router.get('/subscriptions/:id/edit', requireLogin, requireAdmin, async (req, re
     }
 })
 
-// Update subscription
+
+// ==========================
+// Update Subscription
+// ==========================
 router.put('/subscriptions/:id', requireLogin, requireAdmin, async (req, res) => {
     try {
-        const { phone, subscriptionName, packageDuration, expiryDate, notes } = req.body
+        const {
+            phone,
+            subscriptionName,
+            packageDuration,
+            expiryDate,
+            notes
+        } = req.body
 
         await Subscription.findByIdAndUpdate(req.params.id, {
             phone,
@@ -71,7 +112,9 @@ router.put('/subscriptions/:id', requireLogin, requireAdmin, async (req, res) =>
 })
 
 
-// Delete subscription
+// ==========================
+// Delete Subscription
+// ==========================
 router.delete('/subscriptions/:id', requireLogin, requireAdmin, async (req, res) => {
     try {
         const subscription = await Subscription.findById(req.params.id)
@@ -90,6 +133,5 @@ router.delete('/subscriptions/:id', requireLogin, requireAdmin, async (req, res)
         res.send('Error: ' + err.message)
     }
 })
-
 
 module.exports = router
